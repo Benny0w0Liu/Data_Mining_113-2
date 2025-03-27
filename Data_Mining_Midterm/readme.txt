@@ -1,4 +1,7 @@
-資料集描述：
+# KNN,py
+implement K-Nearest Neighbor Algorithm
+
+# 資料集描述：
 
 1. Pregnancies: Number of times pregnant (懷孕了幾次)
 2. Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test (血液中葡萄糖濃度)

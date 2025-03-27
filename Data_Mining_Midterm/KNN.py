@@ -1,6 +1,6 @@
 import csv
 def KNN(K, test_data,training_datas):
-    #calculate distance
+    #calculate distance(Euclidean distance)
     data_distances=[]
     for data in training_datas:
         distance=0
