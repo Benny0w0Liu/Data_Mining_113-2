@@ -1,6 +1,3 @@
-# KNN,py
-implement K-Nearest Neighbor Algorithm
-
 # 資料集描述：
 
 1. Pregnancies: Number of times pregnant (懷孕了幾次)

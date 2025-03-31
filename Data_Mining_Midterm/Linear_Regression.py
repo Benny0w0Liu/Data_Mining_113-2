@@ -1,23 +1,22 @@
 import csv
-def KNN(test_data,training_datas):
-    #set K
-    K=7
-    #calculate distance(Euclidean distance)
-    data_distances=[]
-    for data in training_datas:
-        distance=0
-        for key in data:
-            if(key!='Outcome'):
-                distance+=pow(float(data[key])-float(test_data[key]),2)
-        data_distances.append({'dis':pow(distance,0.5),'Outcome':data['Outcome']})
-    #get K closest data
-    data_distances = sorted(data_distances, key=lambda d: d['dis'])
-    Outcome=[0,0]
-    for data in data_distances[0:K]:
-        Outcome[int(data['Outcome'])]+=1
-    #choose the greater class
-    return int(Outcome[1]>Outcome[0])
+import numpy as np
 
+def linear_regression(test_data,training_datas):
+    data_vec=[]
+    tag=[]
+    test_data=np.array(list(test_data.values())).astype(float)
+    test_data[-1]=1
+    for data in training_datas:
+        vec=np.array(list(data.values()))
+        vec[-1]=1
+        data_vec.append(np.array(vec).astype(float))
+        if(list(data.values())[-1]=='0'): tag.append(-1)
+        else: tag.append(1)
+    data_vec=np.array(data_vec)
+    tag=np.array(tag)
+    Transpose=np.transpose(data_vec)
+    weight=np.matmul(np.matmul(np.linalg.inv(np.matmul(Transpose, data_vec)),Transpose),tag)
+    return int(np.dot(test_data,weight)>0)
 def experiment(experiment,func):
     #read train data
     training_datas=[]
@@ -36,6 +35,5 @@ def experiment(experiment,func):
     for data in test_datas:
         correct_answer+=int(int(data['Outcome'])==func(data,training_datas))
     print("Experiment",experiment,'Accuracy:',correct_answer*100/len(test_datas),'%')
-
-experiment("A",KNN)
-experiment("B",KNN)
+experiment("A",linear_regression)
+experiment("B",linear_regression)
