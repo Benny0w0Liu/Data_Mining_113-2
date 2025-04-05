@@ -1,7 +1,5 @@
 import csv
-def KNN(test_data,training_datas):
-    #set K
-    K=7
+def KNN(test_data,training_datas, K):
     #calculate distance(Euclidean distance)
     data_distances=[]
     for data in training_datas:
@@ -18,7 +16,7 @@ def KNN(test_data,training_datas):
     #choose the greater class
     return int(Outcome[1]>Outcome[0])
 
-def experiment(experiment,func):
+def experiment(experiment, K):
     #read train data
     training_datas=[]
     with open("./實驗"+experiment+"/train_data.csv", mode ='r') as file:    
@@ -34,8 +32,7 @@ def experiment(experiment,func):
     #get Accuracy
     correct_answer=0
     for data in test_datas:
-        correct_answer+=int(int(data['Outcome'])==func(data,training_datas))
-    print("Experiment",experiment,'Accuracy:',correct_answer*100/len(test_datas),'%')
-
-experiment("A",KNN)
-experiment("B",KNN)
+        correct_answer+=int(int(data['Outcome'])==KNN(data,training_datas,K))
+    return correct_answer*100/len(test_datas)
+print("Experiment A Accuracy(K=7):",KNN_experiment("A",7),'%')
+print("Experiment B Accuracy(K=7):",KNN_experiment("B",7),'%')

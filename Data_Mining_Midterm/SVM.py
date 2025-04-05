@@ -1,11 +1,7 @@
 import numpy as np
 import csv
 
-def SVM(data_vec,tag):
-    # constant
-    C=1.0
-    tolerance=0.003
-    number_of_iter = 1000
+def SVM(data_vec,tag, number_of_iter, C, tolerance):
     n_samples, n_features = data_vec.shape
     alpha = np.zeros(n_samples)
     bias = 0
@@ -54,9 +50,7 @@ def SVM(data_vec,tag):
         
     weight = np.sum((alpha * tag)[:, None] * data_vec, axis=0)
     return weight, bias
-def predict(data_vec,weight,bias):
-    return np.sign(np.dot(data_vec, weight) + bias)
-def experiment(experiment,func):
+def experiment(experiment, number_of_iter, C, tolerance):
     #read train data
     with open("./實驗"+experiment+"/train_data.csv", 'r') as file:
         reader = csv.reader(file)
@@ -78,9 +72,7 @@ def experiment(experiment,func):
     training_tags = np.where(training_tags == 0, -1, 1)
     test_tags = np.where(test_tags == 0, -1, 1)
     #get Accuracy
-    weight,bias=func(training_datas, training_tags)
+    weight,bias=SVM(training_datas, training_tags, number_of_iter, C, tolerance)
     test_pred = np.sign(np.dot(test_datas, weight) + bias)
     accuracy = np.mean(test_tags == test_pred)
-    print("Experiment",experiment,'Accuracy:',accuracy*100,'%')
-experiment("A",SVM)
-experiment("B",SVM)
+    return accuracy*100

@@ -1,8 +1,7 @@
 import csv
 import numpy as np
 
-def PLA(data_vec,tag):
-    number_of_iter=10000
+def PLA(data_vec,tag, number_of_iter):
     weight=np.zeros(len(data_vec[0]))
     bias=0
     for _ in range(0,number_of_iter):
@@ -12,7 +11,7 @@ def PLA(data_vec,tag):
                 weight += tag[i]*data_vec[i]
                 break
     return weight, bias
-def experiment(experiment,func):
+def experiment(experiment,number_of_iter):
     #read train data
     with open("./實驗"+experiment+"/train_data.csv", 'r') as file:
         reader = csv.reader(file)
@@ -29,9 +28,7 @@ def experiment(experiment,func):
     training_tags = np.where(training_tags == 0, -1, 1)
     test_tags = np.where(test_tags == 0, -1, 1)
     #get Accuracy
-    weight,bias=func(training_datas, training_tags)
+    weight,bias=PLA(training_datas, training_tags, number_of_iter)
     test_pred = np.sign(np.dot(test_datas, weight) + bias)
     accuracy = np.mean(test_tags == test_pred)
-    print("Experiment",experiment,'Accuracy:',accuracy*100,'%')
-experiment("A",PLA)
-experiment("B",PLA)
+    return accuracy*100
