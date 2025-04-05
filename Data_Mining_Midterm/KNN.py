@@ -34,5 +34,5 @@ def experiment(experiment, K):
     for data in test_datas:
         correct_answer+=int(int(data['Outcome'])==KNN(data,training_datas,K))
     return correct_answer*100/len(test_datas)
-print("Experiment A Accuracy(K=7):",KNN_experiment("A",7),'%')
-print("Experiment B Accuracy(K=7):",KNN_experiment("B",7),'%')
+print("Experiment A Accuracy(K=7):",experiment("A",7),'%')
+print("Experiment B Accuracy(K=7):",experiment("B",7),'%')
