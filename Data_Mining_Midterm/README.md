@@ -4,5 +4,3 @@
 4. Random Forest
 5. Naive Bayes <- Catherine
 6. K-Nearest Neighbors (KNN) <- Benny
-
-X. Linear Regression <- Benny
