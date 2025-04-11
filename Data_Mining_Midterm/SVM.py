@@ -47,7 +47,7 @@ def SVM(data_vec,tag, number_of_iter, C, tolerance):
                 b2 = bias - error_j - tag[i] * (alpha[i] - alpha_i_old) * K[i, j] - tag[j] * (alpha[j] - alpha_j_old) * K[j, j]
                 
                 bias = (b1 + b2) / 2
-        
+
     weight = np.sum((alpha * tag)[:, None] * data_vec, axis=0)
     return weight, bias
 def experiment(experiment, number_of_iter, C, tolerance):

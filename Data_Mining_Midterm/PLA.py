@@ -6,7 +6,7 @@ def PLA(data_vec,tag, number_of_iter):
     bias=0
     for _ in range(0,number_of_iter):
         for i in range(0, len(data_vec)):
-            if np.dot(data_vec[i],weight)*tag[i]+bias<=0:
+            if np.dot(data_vec[i],weight+bias)*tag[i]<=0:
                 bias += tag[i]
                 weight += tag[i]*data_vec[i]
                 break
