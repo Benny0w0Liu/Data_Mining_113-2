@@ -1,5 +1,7 @@
+
 # 決策樹：糖尿病預測實驗
 import pandas as pd
+import numpy as np
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
@@ -43,7 +45,24 @@ print("\n===== 實驗 B =====")
 print("準確率:", acc_b)
 print("混淆矩陣:\n", cm_b)
 
-# ---------- 混淆矩陣圖表 ----------
+# ---------- 特徵重要性 ----------
+def plot_feature_importance(model, features, title):
+    importances = model.feature_importances_
+    indices = np.argsort(importances)[::-1]
+    plt.figure(figsize=(8, 5))
+    sns.barplot(x=importances[indices], y=np.array(features)[indices], palette="viridis")
+
+     # 設定橫軸範圍與刻度
+    plt.xlim(0, 1)  # 橫軸從 0 到 1
+    plt.xticks(np.arange(0, 1.1, 0.1))  # 每 0.1 一格
+
+    plt.title(title)
+    plt.xlabel("Importance")
+    plt.ylabel("Feature")
+    plt.tight_layout()
+    plt.show()
+
+# ---------- 混淆矩陣 ----------
 def plot_cm(cm, title):
     plt.figure(figsize=(5, 4))
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["No", "Yes"], yticklabels=["No", "Yes"])
@@ -53,5 +72,10 @@ def plot_cm(cm, title):
     plt.tight_layout()
     plt.show()
 
+# ---------- 圖輸出 ----------
+plot_feature_importance(clf_a, X_train_a.columns, "Feature Importance - Experiment A")
+plot_feature_importance(clf_b, X_train_b.columns, "Feature Importance - Experiment B")
+
 plot_cm(cm_a, f"Experiment A Confusion Matrix (Acc: {acc_a:.2f})")
 plot_cm(cm_b, f"Experiment B Confusion Matrix (Acc: {acc_b:.2f})")
+
