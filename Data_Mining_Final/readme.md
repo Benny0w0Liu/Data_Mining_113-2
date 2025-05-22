@@ -1,4 +1,5 @@
-
+# Goal
+- dataset: [gene expression cancer RNA-Seq Data Set](https://drive.google.com/drive/folders/1m_ZWyapB2WLpaC7tztc4Kzx_6J_Ugzxc)
 # Process
 ## classification
 Classify the sample points(`test_data.csv`) that the classifier is less sure about into unknown classes and store to unknown ouput. If it is sure about the sample point, store to the known output.
