@@ -1,4 +1,4 @@
-id,label
+id,Class
 sample_189,unknown 0
 sample_320,unknown 0
 sample_288,unknown 1
@@ -6,7 +6,7 @@ sample_6,unknown 1
 sample_13,unknown 1
 sample_475,unknown 0
 sample_577,unknown 1
-sample_574,unknown 0
+sample_574,unknown 1
 sample_55,unknown 0
 sample_313,unknown 0
 sample_373,unknown 0
