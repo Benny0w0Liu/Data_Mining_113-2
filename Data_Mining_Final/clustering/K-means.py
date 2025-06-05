@@ -9,7 +9,6 @@ unknown_data_df = pd.read_csv("DNN_unknown.csv")
 unknown_ids = unknown_data_df['id'].values
 data = unknown_data_df.drop(columns=['id']).values # K-Means algorithm needs only the features
 
-# 確保資料是 float 類型
 data = data.astype(float)
 
 # K-means
@@ -17,7 +16,7 @@ def initialize_centroids(data, k): # 隨機選擇 k 個點作為初始質心
     indices = np.random.choice(len(data), k, replace=False)
     return data[indices]
 
-def assign_to_clusters(data, centroids): # 將每個點分配給最近的質心。回傳一個陣列，表示每個資料點所屬的 cluster ID
+def assign_to_clusters(data, centroids): # 將每個點分配給最近的質心，回傳一個陣列表示每個點所屬的 cluster ID
     distances = np.sqrt(((data - centroids[:, np.newaxis])**2).sum(axis=2))
     return np.argmin(distances, axis=0)
 
@@ -33,7 +32,7 @@ def update_centroids(data, assignments, k): # 根據 cluster 分配，重新計�
     return new_centroids
 
 def calculate_wcss(data, centroids, assignments):
-    # 計算 WCSS 用於評估 cluster 的緊密程度
+    # 計算 WCSS 用於評估 cluster 的緊密度
     wcss = 0
     for i, centroid in enumerate(centroids):
         points_in_cluster = data[assignments == i]
@@ -63,7 +62,6 @@ def kmeans(data, k, max_iterations=100, tolerance=1e-4):
     return assignments, centroids
 
 # 決定最佳的 k 值 (Elbow Method)
-# 使用 Elbow Method 來觀察 WCSS 的變化，尋找 elbow
 wcss_values = []
 max_k = 10 # 可根據資料量和預期 cluster 的數量調整這個值
 
@@ -80,17 +78,15 @@ plt.ylabel('WCSS (Within-Cluster Sum of Squares)')
 plt.title('Elbow Method for Optimal k (Manual K-Means)')
 plt.grid(True)
 plt.show()
-# elbow 點對應的 k 值即為建議的最佳數量
+# elbow 點對應的 k 值即為最佳數量
 
-# 執行 K-Means
 # 根據上一步 Elbow Method 的圖，手動設定最佳 k 值
-optimal_k = 2 # <--- **根據 Elbow Method 的圖，將此處的 K 值調整為找到的最佳值**
+optimal_k = 2
 print(f"\nApply k={optimal_k} run K-Means clustering...")
 
 cluster_labels_numeric, final_centroids = kmeans(data, optimal_k, max_iterations=200, tolerance=1e-5)
 
 # 儲存分群結果
-# 將數值分群結果轉換為 'unknown X' 的字串格式
 formatted_cluster_labels = ['unknown ' + str(label) for label in cluster_labels_numeric]
 
 # 將分群結果與原始 ID 結合
