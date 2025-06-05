@@ -8,8 +8,8 @@ unknown_ids = unknown_data_df['id'].values
 data = unknown_data_df.drop(columns=['id']).values
 
 # 自訂參數
-eps = 6.0     # 鄰域半徑
-min_pts = 3   # 最小點數構成核心點
+eps = 200.0   # 鄰域半徑
+min_pts = 5   # 最小點數構成核心點
 
 def euclidean(p1, p2):
     return np.linalg.norm(p1 - p2)
