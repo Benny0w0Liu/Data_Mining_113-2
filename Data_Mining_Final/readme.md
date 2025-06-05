@@ -38,7 +38,7 @@ Out of result is code.
     - RF @楊子嫻 
     - 以下兩者擇一使用
         - KNN @劉邦均 
-        - Deep Learning (DNN, CNN, RNN) @王心妤
+        - Deep Learning (DNN) @王心妤
 - Clustering 
     - DBSCAN @王心妤
     - Agglomerative @林芷榆 
